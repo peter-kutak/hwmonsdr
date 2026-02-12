@@ -4,7 +4,7 @@ IPMITOOL=${IPMITOOL:-/usr/bin/ipmitool}
 IPMI_HOST=${IPMI_HOST:-}
 IPMI_USER=${IPMI_USER:-}
 IPMI_PASS=${IPMI_PASS:-}
-HWMON_NAME=${HWMON_NAME:-hwmon_multi}
+HWMON_NAME=${HWMON_NAME:-hwmonsw}
 TIMEOUT_RETRIES=${TIMEOUT_RETRIES:-50}
 
 # build ipmitool cmd
