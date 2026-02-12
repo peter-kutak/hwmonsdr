@@ -1,0 +1,13 @@
+[Unit]
+Description=Timer to read IPMI sensors every minute
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=20s
+AccuracySec=1ms
+Persistent=false
+
+[Install]
+WantedBy=timers.target
+
+

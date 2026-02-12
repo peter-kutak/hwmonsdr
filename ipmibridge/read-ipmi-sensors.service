@@ -1,0 +1,11 @@
+[Unit]
+Description=Reads IPMI sensors and writes to hwmon
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/read_ipmi_fan.sh
+# Spustiť ako root, aby mal prístup k /sys
+User=root
+Group=root
+
