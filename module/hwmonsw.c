@@ -9,7 +9,7 @@
 #include <linux/hwmon.h>
 #include <linux/sysfs.h>
 
-MODULE_LICENSE("GPL");
+MODULE_LICENSE("Dual MIT/GPL");
 MODULE_AUTHOR("PeterK");
 MODULE_DESCRIPTION("hwmon dynamic sensors using hwmon_device_register_with_groups");
 
@@ -50,7 +50,8 @@ static ssize_t fan_input_show(struct device *dev, struct device_attribute *attr,
     ssize_t ret = 0;
 
     /* attr->attr.name is like "fan1_input" */
-    strlcpy(base, attr->attr.name, sizeof(base));
+    //FIXME strlcpy
+    strncpy(base, attr->attr.name, sizeof(base));
     if (strlen(base) > 6) /* remove "_input" */
         base[strlen(base)-6] = '\0';
 
@@ -72,7 +73,7 @@ static ssize_t fan_label_show(struct device *dev, struct device_attribute *attr,
     char base[32];
     ssize_t ret = 0;
 
-    strlcpy(base, attr->attr.name, sizeof(base)); /* e.g., "fan1\_label" */
+    strncpy(base, attr->attr.name, sizeof(base)); /* e.g., "fan1\_label" */
     if (strlen(base) > 6)
         base[strlen(base)-6] = '\0'; /* remove "\_label" */
 
@@ -96,8 +97,8 @@ static int create_sensor_locked(struct hwmon_ctx *ctx, const char *name, const c
     s = kzalloc(sizeof(*s), GFP_KERNEL);
     if (!s)
         return -ENOMEM;
-    strlcpy(s->name, name, sizeof(s->name));
-    strlcpy(s->label, label, sizeof(s->label));
+    strncpy(s->name, name, sizeof(s->name));
+    strncpy(s->label, label, sizeof(s->label));
     s->value = val;
 
     dinput = kzalloc(sizeof(*dinput), GFP_KERNEL);
@@ -182,7 +183,7 @@ static void parse_and_update(struct hwmon_ctx *ctx, const char *buf, size_t coun
         if (!eq)
             continue;
         *eq = '\0';
-        strlcpy(name, tok, sizeof(name));
+        strncpy(name, tok, sizeof(name));
         if (kstrtol(eq+1, 10, &val) < 0)
             continue;
 
