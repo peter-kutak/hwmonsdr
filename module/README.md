@@ -7,12 +7,14 @@ sudo dkms build -m hwmonsw -v 1.0
 sudo dkms install -m hwmonsw -v 1.0
 
 Po inštalácii:
+modprobe hwmonsw
+echo hwmonsw > /etc/modules-load.d/hwmonsw.conf
 lsmod | grep hwmonsw
 dmesg | tail -n 20
 ls /sys/class/hwmon/
 
 Aktualizácia RPM:
-echo 1200 | sudo tee /sys/class/hwmon/hwmonX/device/update
+echo fan1=1200 | sudo tee /sys/class/hwmon/hwmonX/update
 
 Odstránenie:
 sudo dkms remove -m hwmonsw -v 1.0 --all
